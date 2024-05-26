@@ -1,5 +1,3 @@
-Sure, here's a basic README file for your Flask project:
-
 ---
 
 # Rest API Handson
