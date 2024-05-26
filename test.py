@@ -1,24 +1,22 @@
 import unittest
-import warnings
+from flask import Flask
 from api import app
 
+class TestStaffEndpoints(unittest.TestCase):
 
-class MyAppTests(unittest.TestCase):
     def setUp(self):
         app.config["TESTING"] = True
         self.app = app.test_client()
 
-        warnings.simplefilter("ignore", category=DeprecationWarning)
-
-    def test_index_page(self):
-        response = self.app.get("/")
+    def test_get_staff(self):
+        response = self.app.get("/staff")
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.data.decode(), "<p>Hello, World!</p>")
+        # Add more assertions to check the response data if needed
 
-    def test_getactors(self):
-        response = self.app.get("mydb")
+    def test_get_staff_by_id(self):
+        response = self.app.get("/staff/1")
         self.assertEqual(response.status_code, 200)
-        self.assertIn("2001", response.data.decode())
+        # Add more assertions to check the response data if needed
 
 if __name__ == "__main__":
     unittest.main()
