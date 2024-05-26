@@ -1,101 +1,67 @@
-# Flask MySQL API with XML and JSON Support
+Sure, here's a basic README file for your Flask project:
 
-This Flask application provides a RESTful API to interact with a MySQL database. It supports basic authentication and can return responses in both JSON and XML formats. The application includes endpoints to manage customer data.
+---
+
+# Rest API Handson
+
+## Description
+This is a Flask application that provides an API for managing staff and budget information. The application interacts with a MySQL database to retrieve and store data.
 
 ## Prerequisites
+Before running this application, ensure you have the following installed:
 
 - Python 3.11
-- MySQL server or MySQL Workbench
-- Virtual environment (recommended)
+- Flask
+- Flask-MySQLdb
 
 ## Installation
+1. Clone the repository to your local machine:
+   ```
+   git clone https://github.com/your-username/your-repository.git
+   ```
 
-1. **Clone the repository:**
-   ```sh
-   git clone <repository_url>
-   cd <repository_directory>
+2. Install dependencies using pip:
+   ```
+   pip install -r requirements.txt
+   ```
 
-2. Create and activate a virtual environment:
+## Configuration
+Before running the application, you need to configure the MySQL database connection in the `app.py` file. Modify the following configurations according to your MySQL setup:
+- `MYSQL_USER`: Your MySQL username
+- `MYSQL_PASSWORD`: Your MySQL password
+- `MYSQL_DB`: The name of your MySQL database
 
-python -m venv venv
-source venv/bin/activate  # On Windows use: venv\Scripts\activate
+## Usage
+To run the application, execute the following command:
+```
+python app.py
+```
+The application will start running on `http://localhost:5000`.
 
-3. Install dependencies:
+## Endpoints
+### 1. Get all staff
+```
+GET /staff
+```
+Returns a list of all staff members.
 
-pip install -r requirements.txt
+### 2. Get staff by ID
+```
+GET /staff/<id>
+```
+Returns information about a specific staff member based on their ID.
 
-4. Set up MySQL database:
+### 3. Get staff details along with allocated budget
+```
+GET /staff/<id>/staff
+```
+Returns staff details along with the allocated budget for a specific staff member.
 
-Ensure your MySQL server is running.
-Create the database and necessary tables. The configuration in this application assumes a database named "mung_beans_final".
+## Contributing
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
-Running the Application
+## License
+[MIT](https://choosealicense.com/licenses/mit/)
 
-1. Run the Flask application:
-
-python main2.py
-
-2. Access the application:
-
-The application will be accessible at http://127.0.0.1:5000/.
-
-API Endpoints
-
-Authentication
-The application uses basic authentication. Use the following credentials:
-
-- Username: charles
-- Password: 9999
-
-Endpoints
-Get all customers
-- URL: /customer
-- Method: GET
-- Authentication: Required
-- Response format: JSON (default) or XML
-
-Get customer by ID
-- URL: /customer/<int:id>
-- Method: GET
-- Authentication: Required
-- Response format: JSON (default) or XML
-
-Get customer satisfaction by customer ID
-- URL: /customer/<int:id>/customer_satisfaction
-- Method: GET
-- Authentication: Required
-- Response format: JSON (default) or XML
-
-Add a new customer
-- URL: /customer
-- Method: POST
-- Authentication: Required
-- Request body: JSON
-- Response format: JSON (default) or XML
-
-Update a customer by ID
-- URL: /customer/<int:id>
-- Method: PUT
-- Authentication: Required
-- Request body: JSON
-- Response format: JSON (default) or XML
-
-Delete a customer by ID
-- URL: /customer/<int:id>
-- Method: DELETE
-- Authentication: Required
-- Response format: JSON (default) or XML
-
-
-
-### Additional Notes
-
-1. **Database Schema:** Ensure your MySQL database schema matches the queries used in the code.
-2. **Error Handling:** The current implementation has basic error handling. You may want to enhance it as needed.
-3. **Dependencies:** Make sure to create a `requirements.txt` file with the necessary dependencies if it doesn't already exist.
-
-To generate the `requirements.txt` file, you can use:
-
-```sh
-pip freeze > requirements.txt
-
+---
+Still incomplete
