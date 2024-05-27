@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, make_response
+from flask import Flask, jsonify, make_response, request
 from flask_mysqldb import MySQL
 
 app = Flask(__name__)
@@ -48,6 +48,21 @@ def get_movies_by_actor(id):
     return make_response(
         jsonify({"staff_id": id, "count": len(data), "job_title": data}), 200
     )
+
+@app.route("/staff", methods = ["POST"])
+def add_staff():
+    cur = mysql.connection.cursor()
+    info = request.get_json()
+    first_name = info["first_name"]
+    last_name = info["last_name"]
+    cur.execute(
+        """INSERT INTO staff (first_name, last_name) VALUE (%s, %s)""", (first_name, last_name),
+    )
+    mysql.connection.commit()
+    print("rows(s) affected :{}".format(cur.rowcount))
+    rows_affected = cur.rowcount
+    cur.close()
+    return make_response(jsonify({"message": "staff added succesfully", "rows_affected": rows_affected}), 201)
 
 
 if __name__ == "__main__":
