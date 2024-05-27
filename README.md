@@ -1,65 +1,231 @@
----
+# Staff Management API
 
-# Rest API Handson
+This project is a simple Flask-based API for managing staff records in a MySQL database. The API allows for the creation, retrieval, updating, and deletion of staff records.
 
-## Description
-This is a Flask application that provides an API for managing staff and budget information. The application interacts with a MySQL database to retrieve and store data.
+## Features
 
-## Prerequisites
-Before running this application, ensure you have the following installed:
+- Retrieve all staff records
+- Retrieve a specific staff record by ID
+- Add a new staff record
+- Update an existing staff record
+- Delete a staff record
+- Fetch staff job titles and related information
 
-- Python 3.11
+## Requirements
+
+- Python 3.6+
 - Flask
 - Flask-MySQLdb
+- MySQL database
 
 ## Installation
-1. Clone the repository to your local machine:
-   ```
-   git clone https://github.com/your-username/your-repository.git
-   ```
 
-2. Install dependencies using pip:
-   ```
-   pip install -r requirements.txt
-   ```
+1. **Clone the repository:**
 
-## Configuration
-Before running the application, you need to configure the MySQL database connection in the `app.py` file. Modify the following configurations according to your MySQL setup:
-- `MYSQL_USER`: Your MySQL username
-- `MYSQL_PASSWORD`: Your MySQL password
-- `MYSQL_DB`: The name of your MySQL database
+    ```bash
+    git clone <repository-url>
+    cd <repository-directory>
+    ```
+
+2. **Set up a virtual environment:**
+
+    ```bash
+    python -m venv venv
+    source venv/bin/activate
+    ```
+
+3. **Install the required packages:**
+
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+4. **Configure the MySQL database:**
+
+    Ensure you have a MySQL server running and create a database named `mydb`. Update the Flask application configuration with your MySQL credentials.
+
+    ```python
+    app.config["MYSQL_USER"] = "root"
+    app.config["MYSQL_PASSWORD"] = "1234"
+    app.config["MYSQL_DB"] = "mydb"
+    app.config["MYSQL_CURSORCLASS"] = "DictCursor"
+    ```
 
 ## Usage
-To run the application, execute the following command:
-```
-python app.py
-```
-The application will start running on `http://localhost:5000`.
 
-## Endpoints
-### 1. Get all staff
-```
-GET /staff
-```
-Returns a list of all staff members.
+1. **Run the Flask application:**
 
-### 2. Get staff by ID
-```
-GET /staff/<id>
-```
-Returns information about a specific staff member based on their ID.
+    ```bash
+    flask run
+    ```
 
-### 3. Get staff details along with allocated budget
-```
-GET /staff/<id>/staff
-```
-Returns staff details along with the allocated budget for a specific staff member.
+2. **API Endpoints:**
 
-## Contributing
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+    - **GET /**
+
+      Returns a simple greeting message.
+
+      ```plaintext
+      GET /
+      ```
+
+      Response:
+      ```html
+      <p>Hello, World!</p>
+      ```
+
+    - **GET /staff**
+
+      Retrieves all staff records.
+
+      ```plaintext
+      GET /staff
+      ```
+
+      Response:
+      ```json
+      [
+        {
+          "staff_id": 1,
+          "first_name": "John",
+          "last_name": "Doe",
+          ...
+        },
+        ...
+      ]
+      ```
+
+    - **GET /staff/<id>**
+
+      Retrieves a specific staff record by ID.
+
+      ```plaintext
+      GET /staff/1
+      ```
+
+      Response:
+      ```json
+      {
+        "staff_id": 1,
+        "first_name": "John",
+        "last_name": "Doe",
+        ...
+      }
+      ```
+
+    - **GET /staff/<id>/job_title**
+
+      Retrieves job title and related information for a specific staff member by ID.
+
+      ```plaintext
+      GET /staff/1/job_title
+      ```
+
+      Response:
+      ```json
+      {
+        "staff_id": 1,
+        "count": 1,
+        "job_title": [
+          {
+            "first_name": "John",
+            "contact_details": "...",
+            "job_title": "Manager",
+            "amount_allocated": 1000
+          }
+        ]
+      }
+      ```
+
+    - **POST /staff**
+
+      Adds a new staff record.
+
+      ```plaintext
+      POST /staff
+      ```
+
+      Request Body:
+      ```json
+      {
+        "first_name": "Jane",
+        "last_name": "Doe"
+      }
+      ```
+
+      Response:
+      ```json
+      {
+        "message": "staff added successfully",
+        "rows_affected": 1
+      }
+      ```
+
+    - **PUT /staff/<id>**
+
+      Updates an existing staff record by ID.
+
+      ```plaintext
+      PUT /staff/1
+      ```
+
+      Request Body:
+      ```json
+      {
+        "first_name": "Jane",
+        "last_name": "Smith"
+      }
+      ```
+
+      Response:
+      ```json
+      {
+        "message": "staff updated successfully",
+        "rows_affected": 1
+      }
+      ```
+
+    - **DELETE /staff/<id>**
+
+      Deletes a staff record by ID.
+
+      ```plaintext
+      DELETE /staff/1
+      ```
+
+      Response:
+      ```json
+      {
+        "message": "staff deleted successfully",
+        "rows_affected": 1
+      }
+      ```
+
+    - **GET /staff/format**
+
+      Fetches query parameters.
+
+      ```plaintext
+      GET /staff/format?id=1234&aaaa=test
+      ```
+
+      Response:
+      ```json
+      {
+        "format": "1234",
+        "foo": "test"
+      }
+      ```
+
+## Notes
+
+- Ensure the MySQL server is running and the database `mydb` is created.
+- Adjust the configuration settings in the Flask app according to your MySQL server setup.
 
 ## License
-[MIT](https://choosealicense.com/licenses/mit/)
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ---
-Still incomplete
+
+Feel free to reach out if you have any questions or need further assistance. Enjoy managing your staff records!
