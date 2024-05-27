@@ -65,5 +65,24 @@ def add_staff():
     return make_response(jsonify({"message": "staff added succesfully", "rows_affected": rows_affected}), 201)
 
 
+
+@app.route("/staff/<int:id>", methods=["PUT"])
+def update_staff(id):
+    cur = mysql.connection.cursor()
+    info = request.get_json()
+    first_name = info["first_name"]
+    last_name = info["last_name"]
+    cur.execute(
+        """ UPDATE staff SET first_name = %s, last_name = %s WHERE staff_id = %s """,
+        (first_name, last_name, id),
+    )
+    mysql.connection.commit()
+    rows_affected = cur.rowcount
+    cur.close()
+    return make_response(jsonify({"message": "staff updated successfully", "rows_affected": rows_affected}), 200)
+
+
+
+
 if __name__ == "__main__":
     app.run(debug=True)
