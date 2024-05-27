@@ -221,11 +221,3 @@ This project is a simple Flask-based API for managing staff records in a MySQL d
 
 - Ensure the MySQL server is running and the database `mydb` is created.
 - Adjust the configuration settings in the Flask app according to your MySQL server setup.
-
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
----
-
-Feel free to reach out if you have any questions or need further assistance. Enjoy managing your staff records!
