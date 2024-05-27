@@ -82,6 +82,29 @@ def update_staff(id):
     return make_response(jsonify({"message": "staff updated successfully", "rows_affected": rows_affected}), 200)
 
 
+@app.route("/staff/<int:id>", methods=["DELETE"])
+def delete_actor(id):
+    cur = mysql.connection.cursor()
+    cur.execute(""" DELETE FROM staff where staff_id = %s """, (id,))
+    mysql.connection.commit()
+    rows_affected = cur.rowcount
+    cur.close()
+    return make_response(
+        jsonify(
+            {"message": "staff deleted successfully", "rows_affected": rows_affected}
+        ),
+        200,
+    )
+
+
+
+@app.route("/staff/format", methods=["GET"])
+def get_params():
+    fmt = request.args.get('id')
+    foo = request.args.get('aaaa')
+    return make_response(jsonify({"format":fmt, "foo":foo}),200)
+
+
 
 
 if __name__ == "__main__":
